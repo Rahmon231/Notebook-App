@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Notebook Application</string>
+    <string name="delete_all">delete all</string>
 </resources>
