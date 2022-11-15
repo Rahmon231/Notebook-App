@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/note_row"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/general_margin"
+        app:cardBackgroundColor="@color/black_shade2"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="@dimen/elevation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/row_note_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/general_margin"
+                android:layout_marginTop="@dimen/general_margin"
+                android:layout_marginEnd="@dimen/general_margin"
+                android:layout_marginBottom="@dimen/general_margin"
+                android:gravity="center"
+                android:padding="@dimen/general_padding"
+                android:text="Note Title"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/row_time_stamp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/row_note_title"
+                android:layout_marginStart="@dimen/general_margin"
+                android:layout_marginTop="@dimen/general_margin"
+                android:layout_marginEnd="@dimen/general_margin"
+                android:layout_marginBottom="@dimen/general_margin"
+                android:gravity="center"
+                android:padding="@dimen/general_padding"
+                android:text="TimeStamp"
+                android:textColor="@color/white" />
+            <ImageView
+                android:id="@+id/share_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimen_16"
+                android:paddingTop="25dp"
+                android:backgroundTint="@color/black"
+                android:src="@drawable/ic_baseline_share_24"
+                />
+
+            <ImageView
+                android:id="@+id/delete_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_margin="@dimen/dimen_16"
+                android:paddingTop="25dp"
+                android:backgroundTint="@color/black"
+                android:src="@drawable/ic_baseline_delete_24"
+               />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
