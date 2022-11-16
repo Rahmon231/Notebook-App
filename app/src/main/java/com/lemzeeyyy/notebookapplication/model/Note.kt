@@ -23,5 +23,7 @@ class Note(
     @ColumnInfo(name = "note_id")
     var noteId: Long = 0
 
-
+    fun getTimeStamp() : Timestamp? {
+        return timestamp
+    }
 }
