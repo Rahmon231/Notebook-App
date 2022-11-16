@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.lemzeeyyy.notebookapplication.adapter.NoteAdapter
 import com.lemzeeyyy.notebookapplication.model.Note
 import com.lemzeeyyy.notebookapplication.repository.NoteRepository
@@ -21,10 +22,12 @@ class MainActivity : AppCompatActivity() {
     lateinit var  noteViewModel:NoteViewModel
     lateinit var noteRecyclerView: RecyclerView
     lateinit var noteAdapter: NoteAdapter
+    lateinit var floatingActionButton: FloatingActionButton
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         noteRecyclerView = findViewById(R.id.recycler_view)
+        floatingActionButton = findViewById(R.id.fab)
 
         var notes:List<Note?> = emptyList()
 
@@ -34,9 +37,21 @@ class MainActivity : AppCompatActivity() {
         noteViewModel = ViewModelProvider(this,viewModelProvider)[NoteViewModel::class.java]
         noteViewModel.myAllNotes.observe(this, Observer {notes->
             setupRecyclerView(notes)
-           Log.d("Tagu", "onCreate: ${notes[0]?.noteTitle}")
+
         })
 
+        floatingActionButton.setOnClickListener {
+            addNewNote()
+        }
+
+    }
+
+    private fun addNewNote() {
+        val dialog = AddNewNoteFragment()
+
+        val view = layoutInflater.inflate(R.layout.fragment_add_new_note, null)
+        dialog.setCancelable(true)
+        dialog.show(supportFragmentManager,"AddNewNote")
     }
 
     private fun setupRecyclerView(notes : List<Note?>){
