@@ -1,19 +1,26 @@
 package com.lemzeeyyy.notebookapplication
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.lemzeeyyy.notebookapplication.model.Note
 import com.lemzeeyyy.notebookapplication.utils.NoteApplication
 import com.lemzeeyyy.notebookapplication.viewmodel.NoteViewModel
 import com.lemzeeyyy.notebookapplication.viewmodel.NoteViewModelFactory
 import java.sql.Timestamp
 
-class AddNewNoteFragment : BottomSheetDialogFragment() {
+
+class UpdateNoteFragment : BottomSheetDialogFragment() {
+     var bundle: Bundle? = arguments
 
 
     override fun onCreateView(
@@ -21,7 +28,7 @@ class AddNewNoteFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_new_note, container, false)
+        return inflater.inflate(R.layout.fragment_update_note, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -29,22 +36,45 @@ class AddNewNoteFragment : BottomSheetDialogFragment() {
         val mainActivity = activity as MainActivity
         lateinit var  noteViewModel: NoteViewModel
         var noteId : Long = 0
-        var isUpdate:Boolean = false
-        val newNoteTitle : EditText = view.findViewById(R.id.edit_note_title)
-        val newDesc  : EditText = view.findViewById(R.id.note_descrip)
-        val saveBtn : Button = view.findViewById(R.id.save_button)
+        val newNoteTitle : EditText = view.findViewById(R.id.edit_note_title_update)
+        val newDesc  : EditText = view.findViewById(R.id.note_descrip_update)
+        val updateBtn : Button = view.findViewById(R.id.update_button)
         val viewModelProvider = NoteViewModelFactory((requireActivity().application as NoteApplication).repository)
         noteViewModel = ViewModelProvider(this,viewModelProvider)[NoteViewModel::class.java]
 
-        saveBtn.setOnClickListener {
+
+        if (bundle!=null) {
+            Log.d("CheckBund", "onViewCreated: $bundle")
+            noteId = bundle!!.getLong(MainActivity.NOTE_ID)
+            noteViewModel.getNote(noteId).observe(this, Observer {
+                if (it != null) {
+                    newNoteTitle.setText(it.noteTitle)
+                    newDesc.setText(it.noteDescription)
+                }
+            })
+        }
+
+            updateBtn.setOnClickListener {
             val newNoteTitleString : String = newNoteTitle.text.toString()
             val newDescString : String = newDesc.text.toString()
             val timestamp = Timestamp(System.currentTimeMillis())
-            mainActivity.getNewNoteData(newNoteTitleString,newDescString,timestamp)
+
+                mainActivity.getUpdateData(newNoteTitleString,newDescString,timestamp,noteId)
+                fragmentManager?.popBackStack()
+
             dismiss()
+
         }
-
     }
 
-
+    override fun onDetach() {
+        super.onDetach()
+        bundle = null
     }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        bundle = arguments
+    }
+
+}

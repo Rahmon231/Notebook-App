@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 class NoteViewModel(private val noteRepository: NoteRepository): ViewModel() {
     val myAllNotes : LiveData<List<Note?>> = noteRepository.getAllNotes().asLiveData()
 
+
     fun insertNote(note: Note) = viewModelScope.launch(Dispatchers.IO){
         noteRepository.insertNote(note)
     }
@@ -23,9 +24,10 @@ class NoteViewModel(private val noteRepository: NoteRepository): ViewModel() {
         noteRepository.updateNote(note)
     }
 
-    fun getNote(id: Long) = viewModelScope.launch(Dispatchers.IO){
-        noteRepository.getNote(id)
+    fun getNote(id: Long) : LiveData<Note?>{
+        return noteRepository.getNote(id).asLiveData()
     }
+
     fun getAllNotes() = viewModelScope.launch(Dispatchers.IO){
         myAllNotes
     }

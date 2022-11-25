@@ -34,6 +34,7 @@ class NoteRepository(private val noteDao: NoteDao) {
         return allNotes
     }
 
+    @WorkerThread
     fun getNote(id:Long) : Flow<Note?> {
         return noteDao.getNote(id)
     }

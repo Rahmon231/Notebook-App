@@ -26,4 +26,10 @@ class Note(
     fun getTimeStamp() : Timestamp? {
         return timestamp
     }
+    fun getId() : Long {
+        return noteId
+    }
+    fun setId(noteId : Long){
+        this.noteId = noteId
+    }
 }
