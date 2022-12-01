@@ -24,7 +24,7 @@ class NoteViewModel(private val noteRepository: NoteRepository): ViewModel() {
         noteRepository.updateNote(note)
     }
 
-    fun getNote(id: Long) : LiveData<Note?>{
+    fun getNote(id: Long) : LiveData<Note?> {
         return noteRepository.getNote(id).asLiveData()
     }
 

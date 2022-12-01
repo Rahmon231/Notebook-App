@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.lemzeeyyy.notebookapplication.adapter.NoteAdapter
 import com.lemzeeyyy.notebookapplication.clickhandlers.ClickHandler
+import com.lemzeeyyy.notebookapplication.fragments.AddNewNoteFragment
 import com.lemzeeyyy.notebookapplication.model.Note
 import com.lemzeeyyy.notebookapplication.utils.NoteApplication
 import com.lemzeeyyy.notebookapplication.viewmodel.NoteViewModel
@@ -57,8 +58,8 @@ class MainActivity : AppCompatActivity(), ClickHandler {
     }
 
     private fun openNewNoteFragment() {
-        val dialog:AddNewNoteFragment = AddNewNoteFragment()
-        dialog.setCancelable(false)
+        val dialog: AddNewNoteFragment = AddNewNoteFragment()
+        dialog.setCancelable(true)
         dialog.show(supportFragmentManager,"AddNewNote")
     }
 
